@@ -1,6 +1,2 @@
 Comment Cards:
-August3 Blake 4 4 4 4 Canada This is great
-afoouja kajdvnjan skjdvnojn kvdazkn vndajl asjcf javnc alsjcn
-a b c d e s g h
-null null null null null null null null
-Aug 9 Bess 4 4 4 4 Australia Bess Sux
+Date: THis is a Test Time: AM Server: hjaf Food: 4 Drinks: 4 Service: 4 Value: 4 Vibe: 4 Country: Canada Comment: this is also a test END 

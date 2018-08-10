@@ -29,16 +29,21 @@ int enterCards (){
 
 	//Get the data from the user for each section of the comment card
 	string date;
+	string time;
 	string server;
 	string food;
 	string drinks;
 	string service;
 	string value;
+	string vibe;
 	string country;
 	string comment;
+
 	for(int i = 0; i<entries; i++){
 	cout<<"Date:";
 	getline(cin,date);
+	cout<<"Time (Hour only and AM/PM):";
+	getline(cin,time);
 	cout << "Server:";
 	getline(cin,server);
 	cout << "Food (1-4):";
@@ -49,6 +54,8 @@ int enterCards (){
 	getline(cin,service);
 	cout << "Value (1-4):";
 	getline(cin,value);
+	cout << "Vibe (1-4):";
+	getline(cin,vibe);
 	cout << "Country:";
 	getline(cin,country);
 	cout << "Comment:";
@@ -57,16 +64,18 @@ int enterCards (){
 
 	//If any values are not filled out, replace with "null"
 	if(date==""){date = "null";}
+	if(time==""){time = "null";}
 	if(server==""){server = "null";}
 	if(food==""){food = "null";}
 	if(drinks==""){drinks = "null";}
 	if(service==""){service = "null";}
 	if(value==""){value = "null";}
+	if(vibe==""){vibe = "null";}
 	if(country==""){country = "null";}
 	if(comment==""){comment = "null";}
 
 	//Write the data to the file in one continuous line
-	testfile << date + " " + server + " " + food + " " + drinks + " " + service + " " + value + " " + country + " " + comment + "\n";
+	testfile << "Date: " + date + " Time: " +time + " Server: " + server + " Food: " + food + " Drinks: " + drinks + " Service: " + service + " Value: " + value + " Vibe: " + vibe + " Country: " + country + " Comment: " + comment + " END \n";
 	}
 	
 	testfile.close();
@@ -90,12 +99,15 @@ int getStats (string filename){
 	string commentFill;
 	string cardsFill;
 	string garbage;
+	string temp = "null";
 	string date;
+	string time;
 	string server;
 	string food;
 	string drinks;
 	string service;
 	string value;
+	string vibe;
 	string country;
 	string comment;
 
@@ -103,8 +115,18 @@ int getStats (string filename){
 	statsfile.open("Cards.txt");
 	statsfile >> commentFill >> cardsFill;
 	cout<<commentFill<<cardsFill<<endl;
-	statsfile>>date>>server>>food>>drinks>>service>>value>>country>>comment;
-	cout << date<<server<<food<<drinks<<service<<value<<country<<comment;
+	statsfile>>garbage>>date;
+	while(temp != "Time:"){
+		date+=(" " +temp);
+		statsfile>>temp;
+	}
+		statsfile>>time>>garbage>>server>>garbage>>food>>garbage>>drinks>>garbage>>service>>garbage>>value>>garbage>>vibe>>garbage>>country>>garbage>>comment;
+	while((temp != "END")){
+		statsfile>>temp;
+		comment+=(" "+ temp);
+	}		
+			
+	cout<<date<<time<<server<<food<<drinks<<service<<value<<vibe<<country<<comment;
 	//TODO Need to implement system to read multi word comments
 
 	
