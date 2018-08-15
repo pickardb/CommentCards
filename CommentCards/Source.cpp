@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 using namespace std;
-
+int numCards=0;
 
 
 int enterCards (){
@@ -12,9 +12,18 @@ int enterCards (){
 	
 	//Open file for reading and writing
 	fstream testfile;
-	string line;
+	string temp;
+	
 	testfile.open("Cards.txt");
-	testfile << "Comment Cards:\n";
+	testfile >> temp;
+	if(temp == ""){
+		testfile << "Comment Cards: 0\n";
+	}
+	else{
+		testfile >> temp >> temp;
+		numCards = std::stoi(temp);
+	}
+	printf("There are %d cards saved\n",numCards);
 	testfile.close();
 	system("pause");
 	
@@ -76,12 +85,25 @@ int enterCards (){
 
 	//Write the data to the file in one continuous line
 	testfile << "Date: " + date + " Time: " +time + " Server: " + server + " Food: " + food + " Drinks: " + drinks + " Service: " + service + " Value: " + value + " Vibe: " + vibe + " Country: " + country + " Comment: " + comment + " END \n";
+	
+	//Add to the number of cards
+	//Done every loop in case user closes program before all cards are entered
+	numCards++;
+	//Close and re-open the file to go back to the start of the file
+	testfile.close();
+	testfile.open("Cards.txt");
+	testfile << "Comment Cards: " << numCards;
+	//Close and re-open the file for appending
+	testfile.close();
+	testfile.open("Cards.txt", std::ios_base::app);
 	}
+	
 	
 	testfile.close();
 	system("pause");
 	return 0;
 }
+
 
 int getStats (string filename){
 	/*STATS NEEDED*/
@@ -96,10 +118,11 @@ int getStats (string filename){
 	//Time of visit
 	//Comment
 
-	string commentFill;
-	string cardsFill;
+	//Variable to put strings that don't contain data
 	string garbage;
-	string temp = "null";
+	//Variable used when iterating through multiple word strings
+	string temp;
+	//Variables to store data form the cards
 	string date;
 	string time;
 	string server;
@@ -111,26 +134,41 @@ int getStats (string filename){
 	string country;
 	string comment;
 
-	ifstream statsfile;
-	statsfile.open("Cards.txt");
-	statsfile >> commentFill >> cardsFill;
-	cout<<commentFill<<cardsFill<<endl;
-	statsfile>>garbage>>date;
-	while(temp != "Time:"){
-		date+=(" " +temp);
-		statsfile>>temp;
-	}
-		statsfile>>time>>garbage>>server>>garbage>>food>>garbage>>drinks>>garbage>>service>>garbage>>value>>garbage>>vibe>>garbage>>country>>garbage>>comment;
-	while((temp != "END")){
-		statsfile>>temp;
-		comment+=(" "+ temp);
-	}		
-			
-	cout<<date<<time<<server<<food<<drinks<<service<<value<<vibe<<country<<comment;
-	//TODO Need to implement system to read multi word comments
-
+	ifstream readfile;
+	readfile.open("Cards.txt");
+	readfile >> garbage >> garbage >> numCards;
 	
-	statsfile.close();
+	printf("There are %d cards in the system\n",numCards);
+
+	for(int i = 0; i<numCards;i++){
+		
+		//Reset the temp variable
+		temp = "";
+		
+		//Ignore "Date: " and take in the first word of the date
+		readfile>>garbage>>date;
+		
+		//Take in all words until we find "Time: ", and add all those words to the end of the date string
+		while(temp != "Time:"){
+			date+=(" " +temp);
+			readfile>>temp;
+		}
+		
+		//Collect all the single word data
+		readfile>>time>>garbage>>server>>garbage>>food>>garbage>>drinks>>garbage>>service>>garbage>>value>>garbage>>vibe>>garbage>>country>>garbage>>comment;
+		
+		//Read all the words of the multi word comment and add it to the comment string
+		readfile>>temp;
+		while((temp != "END")){
+			comment+=(" "+ temp);
+			readfile>>temp;
+		}		
+		
+		//Print the data from each comment card
+		cout<<" "<<date<<" "<<time<<" "<<server<<" "<<food<<" "<<drinks<<" "<<service<<" "<<value<<" "<<vibe<<" "<<country<<" "<<comment<<" \n";
+	}
+
+	readfile.close();
 	system("pause");
 	return 0;
 }

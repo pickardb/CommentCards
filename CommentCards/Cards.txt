@@ -1,2 +1,8 @@
-Comment Cards:
-Date: THis is a Test Time: AM Server: hjaf Food: 4 Drinks: 4 Service: 4 Value: 4 Vibe: 4 Country: Canada Comment: this is also a test END 
+Comment Cards: 7
+Date: Aug 12 Time: 4PM Server: Blake Food: 4 Drinks: 4 Service: 4 Value: 4 Vibe: 4 Country: Argentina Comment: I really enjoyed the food END 
+Date: a Time: b Server: c Food: d Drinks: s Service: e Value: f Vibe: h Country: j Comment: h END 
+Date: d Time: d Server: v Food: rf Drinks: g Service: h Value: h Vibe: v Country: f Comment: d END 
+Date: d Time: r Server: gf Food: g Drinks: g Service: v Value: v Vibe: c Country: d Comment: d END 
+Date: Aug 15 Time: 2PM Server: Blake Food: 1 Drinks: 2 Service: 3 Value: 4 Vibe: 3 Country: Canada Comment: Testing add a number to amount of saved cards END 
+Date: Aug 15 Time: a Server: b Food: c Drinks: d Service: e Value: f Vibe: g Country: h Comment: Testing adding multiple cards END 
+Date: null Time: null Server: null Food: null Drinks: null Service: null Value: null Vibe: null Country: null Comment: null END 
